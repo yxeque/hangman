@@ -27,4 +27,19 @@ class Hangman
     end
     return displayed_word
   end
+
+  def get_guess
+    loop do
+      puts "Enter a letter (or 'save' to save the game):"
+      guess = gets.chomp.upcase
+  
+      if guess == "SAVE"
+        return "save"
+      elsif guess.length == 1 && !@guessed_letters.include?(guess)
+        return guess
+      else
+        puts "Invalid input. Please enter a single letter or 'save'."
+      end
+    end
+  end
 end
