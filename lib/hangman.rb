@@ -1,16 +1,18 @@
 class Hangman
   def initialize
-    @secret_word = secret_word
-    @guessed_letters = guessed_letters
-    @remaining_guesses = remaining_guesses
-    @dictionary = dictionary
+    @secret_word = nil
+    @guessed_letters = []
+    @remaining_guesses = 6
+    @dictionary = nil
 
     load_dictionary
     choose_secret_word
+    puts @secret_word
   end
 
+
   def load_dictionary
-    @dictionary = File.readlines("google-10000-english-no-swears.txt").map(&:chomp).select { |word| word.length.between?(5, 12) }
+    @dictionary = File.readlines("google-10000-english-no-swears.txt").map(&:chomp).select { |word| word.length.between?(5, 5) }
   end
   def choose_secret_word
     @secret_word = @dictionary.sample
@@ -55,4 +57,28 @@ class Hangman
       return false
     end
   end
+
+  def play
+    while @remaining_guesses > 0 && !@secret_word.chars.all? { |char| @guessed_letters.include?(char) }
+      puts display_word
+  
+      guess = get_guess
+  
+      if guess == "save"
+        save_game
+      else
+        check_guess(guess)
+      end
+  
+      if @remaining_guesses == 0
+        puts "You're out of guesses! The word was #{@secret_word}."
+      elsif @secret_word.chars.all? { |char| @guessed_letters.include?(char) }
+        puts "Congratulations! You guessed the word #{@secret_word}."
+      end
+    end
+  end
 end
+
+hangman = Hangman.new
+hangman.play
+

@@ -1,5 +1,3 @@
-Absolutely! Let's walk through building the Hangman game step-by-step:
-
 1. Setting Up the Project:
 
 Create a new Ruby file: Name it hangman.rb or something similar.
