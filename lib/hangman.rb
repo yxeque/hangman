@@ -42,4 +42,17 @@ class Hangman
       end
     end
   end
+
+  def check_guess(letter)
+    if @secret_word.include?(letter)
+      @guessed_letters << letter
+      puts "Correct guess!"
+      puts display_word
+      return true
+    else
+      @remaining_guesses -= 1
+      puts "Incorrect guess. You have #{@remaining_guesses} guesses left."
+      return false
+    end
+  end
 end
